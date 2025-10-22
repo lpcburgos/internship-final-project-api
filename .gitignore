@@ -1,0 +1,7 @@
+/tests
+test_cases_api.md
+*/pytest_cache
+/instance
+.DS_Store
+*/__pycache__
+/__pycache__

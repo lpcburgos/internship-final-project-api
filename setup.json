@@ -1,0 +1,36 @@
+{
+  "user": {
+    "username": "projeto",
+    "email": "projeto@example.com",
+    "password": "Senha123!"
+  },
+  "wishlist": {
+    "name": "projeto_final"
+  },
+  "products": [
+    {
+      "Product": "Apple iPhone 17 Pro Max 512GB Laranja-cosmico",
+      "Price": "13900,00",
+      "Zipcode": "50710330",
+      "delivery_estimate": "7 dias uteis",
+      "shipping_fee": "Gratis",
+      "purchased": false
+    },
+    {
+      "Product": "Apple Watch se gps Caixa prateada de alumínio – 44 mm Pulseira esportiva denim – p/m",
+      "Price": "3.529,00",
+      "Zipcode": "50710330",
+      "delivery_estimate": "7 dias uteis",
+      "shipping_fee": "Gratis",
+      "purchased": false
+    },
+    {
+      "Product": "Apple MacBook Air 13, M3, cpu de 8 núcleos, gpu de 8 núcleos, 24GB ram, 512GB ssd - Meia-noite",
+      "Price": "18.589,00",
+      "Zipcode": "50710330",
+      "delivery_estimate": "7 dias uteis",
+      "shipping_fee": "Gratis",
+      "purchased": false
+    }
+  ]
+}
