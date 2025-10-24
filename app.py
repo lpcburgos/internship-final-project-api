@@ -367,6 +367,12 @@ def create_wishlist(current_user):
     security:
       - bearerAuth: []
     parameters:
+      - name: Authorization
+        in: header
+        type: string
+        required: true
+        description: Bearer token for authentication.
+        example: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
       - in: body
         name: body
         required: true
@@ -422,6 +428,13 @@ def get_wishlists(current_user):
     summary: Get all wishlists for the authenticated user
     security:
       - bearerAuth: []
+    parameters:
+      - name: Authorization
+        in: header
+        type: string
+        required: true
+        description: Bearer token for authentication.
+        example: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
     responses:
       200:
         description: A list of wishlists.
@@ -464,6 +477,12 @@ def add_product_to_wishlist(current_user, wishlist_id):
     security:
       - bearerAuth: []
     parameters:
+      - name: Authorization
+        in: header
+        type: string
+        required: true
+        description: Bearer token for authentication.
+        example: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
       - name: wishlist_id
         in: path
         type: integer
@@ -566,6 +585,12 @@ def get_products_from_wishlist(current_user, wishlist_id):
     security:
       - bearerAuth: []
     parameters:
+      - name: Authorization
+        in: header
+        type: string
+        required: true
+        description: Bearer token for authentication.
+        example: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
       - name: wishlist_id
         in: path
         type: integer
@@ -625,6 +650,12 @@ def update_product(current_user, product_id):
     security:
       - bearerAuth: []
     parameters:
+      - name: Authorization
+        in: header
+        type: string
+        required: true
+        description: Bearer token for authentication.
+        example: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
       - name: product_id
         in: path
         type: integer
@@ -696,6 +727,12 @@ def delete_product(current_user, product_id):
     security:
       - bearerAuth: []
     parameters:
+      - name: Authorization
+        in: header
+        type: string
+        required: true
+        description: Bearer token for authentication.
+        example: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
       - name: product_id
         in: path
         type: integer
