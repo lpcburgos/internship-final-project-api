@@ -404,8 +404,15 @@ def create_wishlist(current_user):
         description: Missing name.
     """
     data = request.get_json()
-    if not data or not data.get('name'):
+    name = data.get('name')
+    if not data or not name:
         return jsonify({"detail": "Missing name"}), 422
+
+    wishlist = Wishlist.query.filter_by(
+        name=name, owner_id=current_user.id).first()
+
+    if wishlist:
+        return jsonify({"message": "A wishlist with this name already exists"}), 409
 
     new_wishlist = Wishlist(
         name=data['name'],
