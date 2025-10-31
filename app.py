@@ -638,6 +638,7 @@ def get_products_from_wishlist(current_user, wishlist_id):
             "id": product.id,
             "Product": product.Product,
             "Price": product.Price,
+            "Zipcode": product.Zipcode,
             "is_purchased": product.is_purchased,
             "delivery_estimate": product.delivery_estimate,
             "wishlist_id": product.wishlist_id
