@@ -633,15 +633,22 @@ def get_products_from_wishlist(current_user, wishlist_id):
 
     query_params = request.args
     product_name = query_params.get('Product')
+    is_purchased_str = query_params.get('is_purchased')
 
-    if len(query_params) > 1 or (len(query_params) == 1 and 'Product' not in query_params):
-        return jsonify({"detail": "Invalid query parameter"}), 400
+    allowed_params = ['Product', 'is_purchased']
+    for param in query_params:
+        if param not in allowed_params:
+            return jsonify({"detail": f"Invalid query parameter: {param}"}), 400
 
     products_query = Product.query.filter_by(wishlist_id=wishlist.id)
 
     if product_name:
         products_query = products_query.filter(
             Product.Product.ilike(f"%{product_name}%"))
+
+    if is_purchased_str is not None:
+        is_purchased = is_purchased_str.lower() in ['true', '1']
+        products_query = products_query.filter_by(is_purchased=is_purchased)
 
     products = products_query.all()
     output = []
@@ -663,11 +670,11 @@ def get_products_from_wishlist(current_user, wishlist_id):
 @token_required
 def update_product(current_user, product_id):
     """
-    Update a product's price.
+    Update a product's details.
     ---
     tags:
       - Products
-    summary: Update a product's price
+    summary: Update a product's details
     security:
       - bearerAuth: []
     parameters:
@@ -688,10 +695,19 @@ def update_product(current_user, product_id):
         schema:
           type: object
           properties:
+            Product:
+              type: string
+              description: The new name of the product.
             Price:
               type: string
               description: The new price of the product.
               example: "20.00"
+            is_purchased:
+              type: boolean
+              description: The new purchase status of the product.
+            delivery_estimate:
+              type: string
+              description: The new delivery estimate of the product.
     responses:
       200:
         description: Product updated successfully.
@@ -722,8 +738,17 @@ def update_product(current_user, product_id):
         return jsonify({"detail": "Product not found"}), 404
 
     data = request.get_json()
+    if not data:
+        return jsonify({"detail": "No data provided"}), 400
+
+    if 'Product' in data:
+        product.Product = data['Product']
     if 'Price' in data:
         product.Price = data['Price']
+    if 'is_purchased' in data:
+        product.is_purchased = data['is_purchased']
+    if 'delivery_estimate' in data:
+        product.delivery_estimate = data['delivery_estimate']
 
     db.session.commit()
     return jsonify({
