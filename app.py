@@ -631,7 +631,19 @@ def get_products_from_wishlist(current_user, wishlist_id):
     if not wishlist:
         return jsonify({"detail": "Wishlist not found"}), 404
 
-    products = Product.query.filter_by(wishlist_id=wishlist.id).all()
+    query_params = request.args
+    product_name = query_params.get('Product')
+
+    if len(query_params) > 1 or (len(query_params) == 1 and 'Product' not in query_params):
+        return jsonify({"detail": "Invalid query parameter"}), 400
+
+    products_query = Product.query.filter_by(wishlist_id=wishlist.id)
+
+    if product_name:
+        products_query = products_query.filter(
+            Product.Product.ilike(f"%{product_name}%"))
+
+    products = products_query.all()
     output = []
     for product in products:
         output.append({
